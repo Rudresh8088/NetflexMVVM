@@ -9,6 +9,8 @@ import UIKit
 
 class HomeViewController: UIViewController {
 
+    // MARK: - Private variables
+    
     private lazy var  homeFeedTable: UITableView = {
         let table = UITableView()
         table.register(CollectionViewTableViewCell.self, forCellReuseIdentifier: CollectionViewTableViewCell.identifier)
@@ -16,6 +18,8 @@ class HomeViewController: UIViewController {
     }()
     
     
+    // MARK: - ViewLife Cycle Methods
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .green
@@ -25,17 +29,39 @@ class HomeViewController: UIViewController {
         
         homeFeedTable.delegate = self
         homeFeedTable.dataSource = self
-        homeFeedTable.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 450))
-    
-
+        
+        let heroImage = HeroHeaderUIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 450))
+        homeFeedTable.tableHeaderView = heroImage
+   
+        configureNavBar()
     }
     
+    // MARK: - ViewLayourSubViews
+
     override func viewWillLayoutSubviews() {
         homeFeedTable.frame  = view.bounds
         
     }
     
+    
+    // MARK: - Private Methods
+
+    private func configureNavBar(){
+        var image = UIImage(named: "netflixLogo")
+        image = image?.withRenderingMode(.alwaysOriginal)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .done, target: self, action: nil)
+        
+        navigationItem.rightBarButtonItems = [
+            UIBarButtonItem(image: UIImage(systemName: "person"), style: .done, target: self, action: nil),
+            UIBarButtonItem(image: UIImage(systemName: "play.rectangle"), style: .done, target: self, action: nil)
+        ]
+        navigationController?.navigationBar.barTintColor = UIColor.green
+
+    }
+    
 }
+
+// MARK: - TableViewDataSource and TableViewDelegate
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
@@ -46,6 +72,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 20
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -53,14 +80,17 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
          return cell
+   
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 40
+   
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 220
+        
     }
     
 }

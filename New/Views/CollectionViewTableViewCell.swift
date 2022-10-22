@@ -9,10 +9,10 @@ import UIKit
 
 class CollectionViewTableViewCell: UITableViewCell {
 
+    // MARK: - Private variables
+  
     static let identifier = "CollectionViewTableViewCell"
-   
-    
-    
+       
     private let collectionview: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: 140, height:  200)
@@ -22,30 +22,35 @@ class CollectionViewTableViewCell: UITableViewCell {
         return collectionview
     }()
     
+    // MARK: - Override init
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.backgroundColor = .systemPink
         contentView.addSubview(collectionview)
-        
-      
-        
+              
         collectionview.dataSource = self
         collectionview.delegate = self
     }
     
+    // MARK: - LayourSubViews
+
     override func layoutSubviews() {
         collectionview.frame = contentView.bounds
+   
     }
  
     required init?(coder: NSCoder) {
         fatalError()
+   
     }
     
 }
 
 
-extension CollectionViewTableViewCell: UICollectionViewDataSource, UICollectionViewDelegate{
+// MARK: - Extension New Features
+
+extension CollectionViewTableViewCell: UICollectionViewDataSource, UICollectionViewDelegate {
    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 10
@@ -58,6 +63,5 @@ extension CollectionViewTableViewCell: UICollectionViewDataSource, UICollectionV
         return cell
         
     }
-    
     
 }
