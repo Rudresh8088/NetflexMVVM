@@ -9,6 +9,7 @@ import UIKit
 
 class HeroHeaderUIView: UIView {
    
+    
     private let heroImageView: UIImageView = {
        let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
